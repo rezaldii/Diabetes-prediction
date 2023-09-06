@@ -27,51 +27,101 @@ Menjelaskan tujuan dari pernyataan masalah:
 - Mengembangkan model machine learning yang unggul dalam meramalkan cuaca dengan memanfaatkan teknik-teknik terbaru dalam analisis data.
 
     ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+    - Melakukan  analisa, eksplorasi, pemrosesan pada data dengan memvisualisasikan data agar mendapat gambaran bagaimana data tersebut. Berikut adalah analisa yang dapat dilakukan :
+        - Mengubah tipe data yang tidak sesuai 
+        - Menangani outlier pada data dengan menggunakan IQR Method
+        - Melakukan normalisasi pada data terutama pada fitur numerik
+    - Membuat model untuk memprediksi cuaca dimasa depan. Berikut beberapa algoritma yang digunakan pada proyek ini :
+        - K-Nearest Neighbor
+        - Random Forest
+        - Boosting Algorithm
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dalam proyek ini, data yang digunakan adalah dataset cuaca Seattle yang dapat diunduh dari [Kaggle](https://www.kaggle.com/datasets/ananthr1/weather-prediction).  
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+### Variabel-variabel dalam Dataset Cuaca Seattle adalah sebagai berikut:
+- date: Tanggal pengamatan cuaca (tipe data: object).
+- precipitation: Curah hujan pada hari itu (tipe data: float64).
+- temp_max: Suhu maksimum (tipe data: float64).
+- temp_min: Suhu minimum (tipe data: float64).
+- wind: Kecepatan angin (tipe data: float64).
+- weather: Kondisi cuaca (tipe data: object).
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Dataset ini memiliki total 1461 baris data dengan 6 kolom. Data ini akan digunakan untuk melakukan analisis cuaca historis dan mengembangkan model prediksi cuaca di masa depan. Variabel-variabel ini akan diolah dan dianalisis lebih lanjut dalam proyek ini untuk memahami pola cuaca dan melakukan prediksi cuaca yang lebih akurat.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+## Exploratory Data Analysis
+### Pengubahan Tipe Data
+Mengubah tipe data kolom "date" menjadi tipe data datetime dan kolom "weather" menjadi tipe data kategori.
+### Penanganan Missing Values
+Tidak ada missing values dalam dataset ini, sehingga tidak diperlukan langkah-langkah khusus untuk menangani missing values.
+### Penanganan Outliers
+- Melakukan analisis outliers menggunakan boxplot untuk kolom "precipitation," "temp_max," "temp_min," dan "wind."
+- Menggunakan metode IQR (Interquartile Range) untuk menghapus outliers pada kolom "precipitation" dan "wind."
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+### Label Encoding
+Menggunakan LabelEncoder untuk mengubah kolom "weather" yang berisi kategori cuaca menjadi nilai numerik.
+### Standarisasi Fitur Numerik
+Melakukan standarisasi pada fitur-fitur numerik untuk memastikan skala yang seragam.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+### K-Nearest Neighbor (KNN)
+Pada tahap ini, menggunakan algoritma K-Nearest Neighbor (KNN) untuk membangun model prediksi cuaca. Algoritma KNN digunakan untuk mengklasifikasikan data berdasarkan kemiripan dengan tetangga terdekat.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+Penggunaan KNN pada proyek ini melibatkan:
+
+- Import KNeighborsClassifier dari sklearn.neighbors.
+- Membuat sebuah objek KNeighborsClassifier dengan n_neighbors=10, yang berarti kita akan mempertimbangkan 10 tetangga terdekat dalam proses klasifikasi.
+- Melatih model KNN menggunakan data pelatihan (X_train_scaled dan y_train).
+- Membuat prediksi cuaca pada data pelatihan dan data uji.
+- Mengukur akurasi model pada data pelatihan dan data uji menggunakan accuracy_score.
+- Menampilkan laporan klasifikasi yang mencakup precision, recall, dan f1-score untuk setiap kategori cuaca.
+
+### Random Forest
+Random Forest adalah salah satu algoritma ensemble yang menggabungkan beberapa pohon keputusan (decision trees) untuk meningkatkan akurasi prediksi. Pada proyek ini, kita menggunakan Random Forest untuk membangun model prediksi cuaca.
+
+Penggunaan Random Forest pada proyek ini melibatkan:
+
+- Import RandomForestClassifier dari sklearn.ensemble.
+- Membuat sebuah objek RandomForestClassifier dengan n_estimators=100, yang berarti kita akan menggunakan 100 pohon keputusan.
+- Melatih model Random Forest menggunakan data pelatihan (X_train_scaled dan y_train).
+- Membuat prediksi cuaca pada data pelatihan dan data uji.
+- Mengukur akurasi model pada data pelatihan dan data uji menggunakan accuracy_score.
+- Menampilkan laporan klasifikasi yang mencakup precision, recall, dan f1-score untuk setiap kategori cuaca.
+
+### Boosting Algorithm (Gradient Boosting)
+Boosting adalah teknik ensemble lainnya yang menggabungkan beberapa model lemah untuk membuat model yang lebih kuat. Pada proyek ini, kita menggunakan algoritma Gradient Boosting untuk membangun model prediksi cuaca.
+
+Penggunaan Gradient Boosting pada proyek ini melibatkan:
+
+- Import GradientBoostingClassifier dari sklearn.ensemble.
+- Membuat sebuah objek GradientBoostingClassifier dengan n_estimators=100, yang berarti kita akan menggunakan 100 pohon keputusan dalam proses boosting.
+- Melatih model Gradient Boosting menggunakan data pelatihan (X_train_scaled dan y_train).
+- Membuat prediksi cuaca pada data pelatihan dan data uji.
+- Mengukur akurasi model pada data pelatihan dan data uji menggunakan accuracy_score.
+- Menampilkan laporan klasifikasi yang mencakup precision, recall, dan f1-score untuk setiap kategori cuaca.
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Tahap evaluasi dilakukan untuk membandingkan performa ketiga model yang telah dibangun, yaitu K-Nearest Neighbor (KNN), Random Forest, dan Gradient Boosting. Evaluasi dilakukan dengan mengukur akurasi, precision, recall, dan f1-score dari masing-masing model pada data pelatihan dan data uji.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Hasil evaluasi akan membantu kita dalam memilih model terbaik untuk digunakan dalam prediksi cuaca di masa depan. Model dengan akurasi yang tinggi dan nilai precision, recall, dan f1-score yang baik akan menjadi pilihan utama.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Dalam proyek ini, kita telah mengevaluasi ketiga model dan hasilnya adalah sebagai berikut:
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+### K-Nearest Neighbor (KNN)
+- Training Accuracy: 0.786
+- Test Accuracy: 0.786
+- Classification Report (KNN):
+    - Precision, recall, dan f1-score untuk setiap kategori cuaca.
+### Random Forest
+- Training Accuracy: 0.997
+- Test Accuracy: 0.819
+- Classification Report (Random Forest):
+    - Precision, recall, dan f1-score untuk setiap kategori cuaca.
+### Boosting Algorithm (Gradient Boosting)
+- Training Accuracy: 0.897
+- Test Accuracy: 0.802
+- Classification Report (Gradient Boosting):
+    - Precision, recall, dan f1-score untuk setiap kategori cuaca.
 
-**---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+Berdasarkan hasil evaluasi, kita dapat melihat bahwa model Random Forest memiliki akurasi yang cukup tinggi pada data uji (0.819) dan hasil yang baik dalam precision, recall, dan f1-score untuk setiap kategori cuaca. Oleh karena itu, model Random Forest dapat dipilih sebagai model terbaik untuk digunakan dalam prediksi cuaca di masa depan.
