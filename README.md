@@ -31,17 +31,24 @@ Berdasarkan Problem Statements, tujuan untuk proyek ini adalah:
 - Berkontribusi pada pengembangan strategi pencegahan dan pengobatan yang lebih efektif untuk diabetes.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+Dataset yang digunakan dalam proyek ini adalah Dataset Prediksi Diabetes, yang dapat diunduh dari [Kaggle](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset). Dataset ini berisi data kesehatan untuk 100.000 individu dan digunakan untuk memprediksi risiko diabetes.
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Variabel dalam Dataset Prediksi Diabetes adalah sebagai berikut:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+- **gender**: Jenis kelamin individu. Ini adalah variabel kategorikal dengan tiga nilai unik: Female (Perempuan), Male (Laki-laki), dan Other (Lainnya).
+- **age**: Usia individu. Ini adalah variabel numerik dengan nilai mulai dari 0,08 hingga 80 tahun.
+- **hypertension**: Menunjukkan apakah individu memiliki hipertensi atau tidak. Ini adalah variabel biner dengan nilai 0 (tidak ada hipertensi) dan 1 (memiliki hipertensi).
+- **heart_disease**: Menunjukkan apakah individu memiliki penyakit jantung atau tidak. Ini adalah variabel biner dengan nilai 0 (tidak ada penyakit jantung) dan 1 (memiliki penyakit jantung).
+- **smoking_history**: Riwayat merokok individu. Ini adalah variabel kategorikal dengan enam nilai unik: No Info, never (tidak pernah), former (mantan), current (saat ini), not current (tidak saat ini), dan ever (pernah).
+- **bmi**: Indeks Massa Tubuh individu. Ini adalah variabel numerik dengan nilai mulai dari 10,01 hingga 95,69.
+- **HbA1c_level**: Tingkat HbA1c individu. Ini adalah variabel numerik dengan nilai mulai dari 3,5 hingga 9.
+- **blood_glucose_level**: Tingkat glukosa darah individu. Ini adalah variabel numerik dengan nilai mulai dari 80 hingga 300.
+- **diabetes**: Menunjukkan apakah individu memiliki diabetes atau tidak. Ini adalah variabel target untuk prediksi, dan merupakan variabel biner dengan nilai 0 (tidak ada diabetes) dan 1 (memiliki diabetes).
+
+Dataset ini tidak mengandung nilai yang hilang dan setiap kolom memiliki tipe data yang sesuai untuk nilainya.
+
+Frekuensi counts untuk variabel kategorikal menunjukkan bahwa ada lebih banyak perempuan daripada laki-laki dalam dataset, dan sebagian besar individu tidak pernah merokok atau tidak memiliki informasi tentang riwayat merokok mereka.
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
