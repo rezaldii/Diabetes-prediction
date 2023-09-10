@@ -135,19 +135,35 @@ Pada akhirnya, parameter terbaik yang ditemukan untuk model Random Forest adalah
 - `min_samples_leaf`: 1
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Pada tahap evaluasi model, digunakan berbagai metrik evaluasi yang sesuai dengan konteks data dan masalah klasifikasi yang dihadapi. Berikut adalah metrik evaluasi yang digunakan:
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+1. **Regresi Logistik:**
+   - **Akurasi (Accuracy):** Metrik ini mengukur sejauh mana model dapat memprediksi kelas dengan benar dari seluruh data. Regresi Logistik memiliki akurasi sekitar 95.69%.
+   - **Presisi (Precision):** Presisi mengukur sejauh mana prediksi positif model (kelas 1 - diabetes) adalah benar. Regresi Logistik memiliki presisi sekitar 85.19%.
+   - **Recall:** Recall mengukur sejauh mana model dapat mengidentifikasi semua kasus positif yang sebenarnya. Regresi Logistik memiliki recall sekitar 62.81%.
+   - **F1-Score:** F1-Score adalah perpaduan antara presisi dan recall. Regresi Logistik memiliki F1-Score sekitar 72.31%.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+2. **Pohon Keputusan (setelah penyetelan):**
+   - **Akurasi:** Model Pohon Keputusan yang telah disetel memiliki akurasi sekitar 97.04%.
+   - **Presisi:** Model Pohon Keputusan yang telah disetel memiliki presisi sekitar 99.06%.
+   - **Recall:** Model Pohon Keputusan yang telah disetel memiliki recall sekitar 67.52%.
+   - **F1-Score:** Model Pohon Keputusan yang telah disetel memiliki F1-Score sekitar 80.30%.
 
-**---Ini adalah bagian akhir laporan---**
+3. **Random Forest (setelah penyetelan):**
+   - **Akurasi:** Model Random Forest yang telah disetel memiliki akurasi sekitar 97.06%.
+   - **Presisi:** Model Random Forest yang telah disetel memiliki presisi sekitar 99.74%.
+   - **Recall:** Model Random Forest yang telah disetel memiliki recall sekitar 67.29%.
+   - **F1-Score:** Model Random Forest yang telah disetel memiliki F1-Score sekitar 80.36%.
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+**Penjelasan Hasil Proyek Berdasarkan Metrik Evaluasi:**
+
+Berdasarkan metrik evaluasi yang digunakan, dapat diberikan pemahaman tentang kinerja ketiga model yang dikembangkan:
+
+- Model Regresi Logistik memiliki akurasi yang cukup tinggi, namun recall yang rendah, yang berarti model ini cenderung menghasilkan banyak false negative (kasus diabetes yang tidak terdeteksi). Model ini mungkin perlu peningkatan lebih lanjut dalam mengidentifikasi kasus diabetes.
+
+- Model Pohon Keputusan yang telah disetel memiliki kinerja yang lebih baik dengan akurasi yang tinggi, presisi yang tinggi, dan recall yang wajar. Hal ini menunjukkan bahwa model ini cocok untuk tugas klasifikasi ini setelah penyetelan hyperparameter.
+
+- Model Random Forest yang telah disetel memberikan hasil yang serupa dengan model Pohon Keputusan yang telah disetel. Akurasi dan presisi yang tinggi membuat model ini sangat baik dalam mengklasifikasikan pasien diabetes, tetapi recall yang rendah mengindikasikan potensi untuk memperbaiki identifikasi pasien diabetes.
+
+Disarankan untuk menggunakan model Pohon Keputusan atau Random Forest yang telah disetel, tergantung pada preferensi terkait dengan trade-off antara presisi dan recall. Selain itu, interpretasi model Pohon Keputusan dapat memberikan wawasan tambahan tentang faktor-faktor yang mempengaruhi prediksi diabetes. Lebih lanjut, akan dilakukan validasi tambahan dengan dataset eksternal untuk memastikan generalisasi model ke data yang belum pernah dilihat sebelumnya.
