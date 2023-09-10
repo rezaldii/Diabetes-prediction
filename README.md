@@ -51,19 +51,88 @@ Dataset ini tidak mengandung nilai yang hilang dan setiap kolom memiliki tipe da
 Frekuensi counts untuk variabel kategorikal menunjukkan bahwa ada lebih banyak perempuan daripada laki-laki dalam dataset, dan sebagian besar individu tidak pernah merokok atau tidak memiliki informasi tentang riwayat merokok mereka.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Pada tahap persiapan data, beberapa teknik pemrosesan data telah diterapkan untuk mempersiapkan dataset sebelum digunakan untuk melatih model prediksi diabetes. Teknik-teknik tersebut dijelaskan berikut ini dalam urutan yang dilakukan:
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+1. **Standardisasi Data Numerik** 
+-  Memilih fitur-fitur numerik yang perlu distandarisasi, yaitu 'age', 'bmi', 'HbA1c_level', dan 'blood_glucose_level'.
+- Menginisialisasi objek Standard Scaler untuk standarisasi.
+- Melakukan standarisasi pada fitur-fitur tersebut menggunakan Standard Scaler.
+
+2. **One-Hot Encoding untuk Variabel Kategorikal**
+- Melakukan one-hot encoding pada kolom "gender" dan "smoking_history" untuk mengubahnya menjadi format yang dapat dipahami oleh model.
+- One-hot encoding digunakan dengan pengaturan drop_first=True untuk menghindari multicollinearity.
+
+3. **Seleksi Fitur Berdasarkan Korelasi**
+- Menghitung korelasi antara setiap fitur dalam dataset yang telah dienkripsi dengan target "diabetes".
+- Menentukan ambang batas korelasi yang relevan (dalam contoh ini, 0.1).
+- Memilih fitur-fitur yang memiliki korelasi relevan dengan "diabetes" berdasarkan ambang batas tersebut.
+
+4. **Pembagian Data Menjadi Set Pelatihan dan Set Tes**
+- Memisahkan fitur-fitur yang relevan dan target "diabetes" dari dataset yang telah dienkripsi.
+- Menggunakan train_test_split dari scikit-learn untuk membagi data menjadi set pelatihan (80% dari data) dan set tes (20% dari data).
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+Pada tahapan ini, digunakan tiga jenis model machine learning untuk memprediksi kasus diabetes, yaitu Regresi Logistik, Pohon Keputusan, dan Random Forest. Berikut adalah tahapan-tahapan dan parameter-parameter yang digunakan dalam proses pemodelan:
+
+### 1. Regresi Logistik
+
+**Tahapan:**
+
+- Inisialisasi model Regresi Logistik
+- Melatih model pada set pelatihan
+- Memprediksi kelas target pada set tes
+- Menghitung akurasi model
+- Menampilkan laporan klasifikasi
+- Menghitung dan menampilkan matriks konfusi
+
+**Parameter:**
+
+Model Regresi Logistik adalah model yang sederhana dan tidak memiliki banyak hyperparameter yang perlu disetel secara khusus. Pada contoh di atas, digunakan `random_state` yang disetel ke 42 untuk menjaga konsistensi hasil.
+
+### 2. Pohon Keputusan
+
+**Tahapan:**
+
+- Inisialisasi model Pohon Keputusan
+- Penyetelan hyperparameter dengan menggunakan Grid Search
+- Memprediksi kelas target pada set tes
+- Menghitung akurasi model Pohon Keputusan setelah penyetelan
+- Menampilkan laporan klasifikasi setelah penyetelan
+- Menghitung dan menampilkan matriks konfusi setelah penyetelan
+
+**Parameter:**
+
+Penyetelan hyperparameter pada model Pohon Keputusan menggunakan Grid Search dengan parameter-parameter berikut:
+- `max_depth`: Kedalaman maksimum dari pohon keputusan.
+- `min_samples_split`: Jumlah minimum sampel yang dibutuhkan untuk membagi simpul.
+- `min_samples_leaf`: Jumlah minimum sampel yang dibutuhkan pada simpul daun.
+- `criterion`: Kriteria pemilihan fitur terbaik, yang dapat berupa 'gini' atau 'entropy'.
+
+### 3. Random Forest
+
+**Tahapan:**
+
+- Inisialisasi model Random Forest
+- Penyetelan hyperparameter dengan menggunakan Grid Search
+- Memprediksi kelas target pada set tes
+- Menghitung akurasi model Random Forest yang ditingkatkan
+- Menampilkan laporan klasifikasi
+- Menghitung dan menampilkan matriks konfusi
+
+**Parameter:**
+
+Penyetelan hyperparameter pada model Random Forest menggunakan Grid Search dengan parameter-parameter berikut:
+- `n_estimators`: Jumlah pohon dalam ensemble Random Forest.
+- `max_depth`: Kedalaman maksimum dari setiap pohon dalam ensemble.
+- `min_samples_split`: Jumlah minimum sampel yang dibutuhkan untuk membagi simpul dalam setiap pohon.
+- `min_samples_leaf`: Jumlah minimum sampel yang dibutuhkan pada simpul daun dalam setiap pohon.
+
+Pada akhirnya, parameter terbaik yang ditemukan untuk model Random Forest adalah:
+- `n_estimators`: 100
+- `max_depth`: 10
+- `min_samples_split`: 2
+- `min_samples_leaf`: 1
 
 ## Evaluation
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
