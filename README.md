@@ -125,29 +125,21 @@ Setelah melakukan penyetelan hyperparameter, baik model Pohon Keputusan maupun R
 
 Dalam proyek ini, menggunakan beberapa metrik evaluasi yang umum digunakan dalam masalah klasifikasi, yaitu:
 
-1. **Akurasi (Accuracy)**: Akurasi mengukur sejauh mana model berhasil mengklasifikasikan data dengan benar, baik kelas positif maupun kelas negatif. Rumusnya adalah:
+- **Akurasi (Accuracy)**: Akurasi mengukur sejauh mana model berhasil mengklasifikasikan data dengan benar, baik kelas positif maupun kelas negatif. Rumusnya adalah:
 
-   \[
-   \text{Akurasi} = \frac{\text{Jumlah prediksi benar}}{\text{Total jumlah data}}
-   \]
+   ![Akurasi](https://latex.codecogs.com/gif.latex?%5Ctext%7BAkurasi%7D%20%3D%20%5Cfrac%7B%5Ctext%7BJumlah%20prediksi%20benar%7D%7D%7B%5Ctext%7BTotal%20jumlah%20data%7D%7D)
 
-2. **Presisi (Precision)**: Presisi mengukur sejauh mana prediksi positif yang dibuat oleh model adalah benar. Presisi memberikan informasi tentang berapa banyak dari kasus yang diprediksi positif yang sebenarnya positif. Rumusnya adalah:
+- **Presisi (Precision)**: Presisi mengukur sejauh mana prediksi positif yang dibuat oleh model adalah benar. Presisi memberikan informasi tentang berapa banyak dari kasus yang diprediksi positif yang sebenarnya positif. Rumusnya adalah:
 
-   \[
-   \text{Presisi} = \frac{\text{Jumlah True Positives}}{\text{Jumlah True Positives + Jumlah False Positives}}
-   \]
+   ![Presisi](https://latex.codecogs.com/gif.latex?%5Ctext%7BPresisi%7D%20%3D%20%5Cfrac%7B%5Ctext%7BJumlah%20True%20Positives%7D%7D%7B%5Ctext%7BJumlah%20True%20Positives%20&plus;%20Jumlah%20False%20Positives%7D%7D)
 
-3. **Recall (Sensitivity atau True Positive Rate)**: Recall mengukur sejauh mana model berhasil menemukan semua kasus positif yang sebenarnya. Recall memberikan informasi tentang berapa banyak dari kasus positif yang sebenarnya yang berhasil diidentifikasi oleh model. Rumusnya adalah:
+- **Recall (Sensitivity atau True Positive Rate)**: Recall mengukur sejauh mana model berhasil menemukan semua kasus positif yang sebenarnya. Recall memberikan informasi tentang berapa banyak dari kasus positif yang sebenarnya yang berhasil diidentifikasi oleh model. Rumusnya adalah:
 
-   \[
-   \text{Recall} = \frac{\text{Jumlah True Positives}}{\text{Jumlah True Positives + Jumlah False Negatives}}
-   \]
+   ![Recall](https://latex.codecogs.com/gif.latex?%5Ctext%7BRecall%7D%20%3D%20%5Cfrac%7B%5Ctext%7BJumlah%20True%20Positives%7D%7D%7B%5Ctext%7BJumlah%20True%20Positives%20&plus;%20Jumlah%20False%20Negatives%7D%7D)
 
-4. **F1-Score**: F1-Score adalah pengukuran yang menggabungkan presisi dan recall menjadi satu metrik yang seimbang. F1-Score adalah harmonic mean dari presisi dan recall. Rumusnya adalah:
+- **F1-Score**: F1-Score adalah pengukuran yang menggabungkan presisi dan recall menjadi satu metrik yang seimbang. F1-Score adalah harmonic mean dari presisi dan recall. Rumusnya adalah:
 
-   \[
-   \text{F1-Score} = 2 \times \frac{\text{Presisi} \times \text{Recall}}{\text{Presisi} + \text{Recall}}
-   \]
+   ![F1-Score](https://latex.codecogs.com/gif.latex?%5Ctext%7BF1-Score%7D%20%3D%202%20%5Ctimes%20%5Cfrac%7B%5Ctext%7BPresisi%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPresisi%7D%20&plus;%20%5Ctext%7BRecall%7D%7D)
 
 Hasil proyek berdasarkan metrik evaluasi yang digunakan adalah sebagai berikut:
 
