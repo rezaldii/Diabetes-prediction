@@ -38,99 +38,130 @@ Berdasarkan Problem Statements, tujuan untuk proyek ini adalah:
 
    - **Penyetelan Hyperparameter**: menggunakan teknik Grid Search dan Random Search. Tujuannya adalah untuk menemukan kombinasi hyperparameter terbaik yang dapat meningkatkan performa model.
 
-## Data Understanding
+# Data Understanding
 
-Dalam proyek ini, data yang digunakan berasal dari [Kaggle - Diabetes Prediction Dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset). Dataset ini digunakan untuk memprediksi kemungkinan seseorang mengidap diabetes berdasarkan berbagai fitur seperti usia, jenis kelamin, riwayat penyakit jantung, riwayat merokok, indeks massa tubuh (BMI), tingkat HbA1c, dan tingkat glukosa darah.
+Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapat mengunduh dataset ini dari Kaggle melalui tautan berikut: [Diabetes Prediction Dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset).
 
 ### Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
-- **gender**: Jenis kelamin pasien (e.g., Female, Male, Other).
-- **age**: Usia pasien dalam tahun.
-- **hypertension**: Indikator hipertensi (0: Tidak, 1: Ya).
-- **heart_disease**: Indikator penyakit jantung (0: Tidak, 1: Ya).
-- **smoking_history**: Riwayat merokok pasien (e.g., never, current, former, not current, ever).
-- **bmi**: Indeks massa tubuh (BMI) pasien.
-- **HbA1c_level**: Tingkat HbA1c dalam darah pasien.
-- **blood_glucose_level**: Tingkat glukosa dalam darah pasien.
-- **diabetes**: Status diabetes (0: Non-diabetes, 1: Diabetes).
 
-### Data Understanding Steps:
-1. Data telah dimuat ke dalam DataFrame dan ditampilkan 5 baris pertama sebagai contoh.
-2. Informasi tentang jumlah baris dan kolom dalam dataset telah disajikan.
-3. Jenis data (data types) dari setiap kolom telah ditampilkan.
-4. Statistik deskriptif seperti mean, std, min, dan max untuk kolom numerik telah disajikan.
-5. Jumlah nilai yang hilang (missing values) dalam setiap kolom telah dicantumkan. Dalam kasus ini, tidak ada nilai yang hilang dalam dataset.
-6. Jumlah nilai unik dalam setiap kolom telah disajikan.
-7. Frekuensi jumlah masing-masing kategori dalam kolom kategorikal seperti jenis kelamin dan riwayat merokok telah ditampilkan dalam bentuk tabel dan grafik batang.
-8. Visualisasi data seperti histogram, box plot, dan scatter plot digunakan untuk memahami distribusi dan hubungan antara variabel numerik seperti usia, BMI, dan tingkat glukosa darah.
-9. Dilakukan pengujian hipotesis statistik untuk menguji perbedaan rata-rata BMI antara pasien diabetes dan non-diabetes, serta perbedaan rata-rata BMI antara kelompok berbeda berdasarkan riwayat merokok.
-10. Dibuat tabel kontingensi dan dilakukan uji chi-square untuk menguji hubungan antara jenis kelamin dan diabetes.
-11. Korelasi antara usia (age) dan indeks massa tubuh (BMI) dihitung menggunakan metode Pearson dan divisualisasikan sebagai scatter plot.
-12. Deteksi anomali dilakukan dengan menggunakan Isolation Forest untuk variabel numerik tertentu seperti usia, BMI, tingkat HbA1c, dan tingkat glukosa darah.
-13. Verifikasi kualitas data meliputi pemeriksaan data duplikat dan penanganan nilai outlier untuk variabel numerik tertentu.
-14. Dalam proses verifikasi kualitas data, nilai "Other" dalam kolom "gender" diganti dengan NaN untuk meningkatkan konsistensi data.
+1. **gender**: Variabel ini menyimpan informasi tentang jenis kelamin pasien (e.g., Female, Male, Other).
+
+2. **age**: Variabel ini adalah usia pasien dalam tahun.
+
+3. **hypertension**: Variabel ini menunjukkan apakah pasien menderita hipertensi (0 untuk Tidak, 1 untuk Ya).
+
+4. **heart_disease**: Variabel ini menunjukkan apakah pasien memiliki penyakit jantung (0 untuk Tidak, 1 untuk Ya).
+
+5. **smoking_history**: Variabel ini berisi riwayat merokok pasien (e.g., never, former, current, not current, ever).
+
+6. **bmi**: Variabel ini adalah indeks massa tubuh (BMI) pasien.
+
+7. **HbA1c_level**: Variabel ini merupakan tingkat HbA1c dalam darah pasien.
+
+8. **blood_glucose_level**: Variabel ini adalah tingkat glukosa darah pasien.
+
+9. **diabetes**: Variabel ini adalah target yang akan diprediksi (0 untuk Tidak memiliki diabetes, 1 untuk Memiliki diabetes).
+
+### Tahapan Data Understanding:
+
+1. **Load Dataset**: Data diunduh dari sumber (Kaggle) dan dimuat ke dalam DataFrame menggunakan perintah berikut:
+   
+   ```python
+   data = pd.read_csv('diabetes_prediction_dataset.csv')
+   ```
+
+2. **Melihat 5 Data Awal**: Untuk memahami konten dataset, lima baris pertama dari dataset ditampilkan menggunakan perintah:
+   
+   ```python
+   data.head()
+   ```
+
+3. **Informasi Data**: Untuk memahami tipe data, jumlah kolom dan baris, serta adanya nilai yang hilang, digunakan perintah berikut:
+   
+   ```python
+   data.info()
+   ```
+
+4. **Statistik Deskriptif**: Untuk mendapatkan statistik deskriptif dari variabel numerik, digunakan perintah:
+   
+   ```python
+   data.describe()
+   ```
+
+5. **Jumlah Data yang Hilang**: Untuk mengidentifikasi jumlah data yang hilang dalam setiap kolom, digunakan perintah:
+   
+   ```python
+   data.isnull().sum()
+   ```
+
+6. **Jumlah Unik untuk Setiap Variabel**: Untuk melihat jumlah nilai unik dalam setiap kolom, digunakan perintah:
+   
+   ```python
+   data.nunique()
+   ```
+
+7. **Visualisasi Data**: Visualisasi data dilakukan dengan menghasilkan grafik batang (bar plot), histogram, box plot, dan scatterplot untuk beberapa variabel. Contohnya adalah visualisasi jenis kelamin (gender) dan riwayat merokok (smoking_history) menggunakan grafik batang, serta histogram untuk usia (age), indeks massa tubuh (bmi), dan tingkat glukosa darah (blood_glucose_level).
+
+8. **Uji Hipotesis Statistik**: Dilakukan uji hipotesis statistik seperti uji t untuk membandingkan rata-rata BMI antara pasien diabetes dan non-diabetes, uji ANOVA untuk membandingkan rata-rata BMI antara kelompok berbeda berdasarkan riwayat merokok, dan uji chi-square untuk menganalisis hubungan antara jenis kelamin (gender) dan diabetes.
+
+9. **Korelasi Antara Variabel**: Dihitung nilai korelasi antara usia (age) dan indeks massa tubuh (bmi) serta ditampilkan dalam scatterplot.
+
+10. **Deteksi Anomali**: Anomali dalam dataset dideteksi menggunakan algoritma Isolation Forest.
+
+11. **Verifikasi Kualitas Data**: Dilakukan pemeriksaan data terhadap duplikasi dan kualitas data, termasuk penanganan nilai yang tidak konsisten dalam kolom jenis kelamin (gender).
+
+12. **Pembersihan Data**: Nilai "Other" dalam kolom jenis kelamin (gender) diganti dengan NaN, dan data yang duplikat dihapus.
+
+Data Understanding adalah langkah awal yang penting dalam proyek analitik data untuk memahami dataset yang digunakan dan mempersiapkannya untuk analisis lebih lanjut.
 
 ## Data Preparation
 Pada proyek ini, beberapa tahapan data preparation telah dilakukan untuk memastikan kualitas dan kesiapan data sebelum digunakan dalam pembuatan model prediksi diabetes. Berikut adalah tahapan-tahapan tersebut:
 
 ### 1. Standarisasi Fitur Numerik
-Tahapan ini melibatkan standarisasi fitur-fitur numerik seperti "age," "bmi," "HbA1c_level," dan "blood_glucose_level" menggunakan Standard Scaler. Alasan utama untuk standarisasi adalah agar skala fitur-fitur tersebut seragam. Beberapa algoritma pembelajaran mesin, seperti regresi logistik dan SVM, sangat rentan terhadap perbedaan skala antar fitur. Dengan melakukan standarisasi, kita memastikan bahwa setiap fitur memiliki mean nol dan deviasi standar satu.
+Data preparation merupakan salah satu tahap penting dalam pemrosesan data sebelum membangun model prediksi. Pada proyek ini, berikut adalah teknik data preparation yang telah dilakukan:
 
-**Output**:
-```
-   gender       age  hypertension  heart_disease smoking_history       bmi  \
-0  Female  1.700840             0              1           never -0.310970   
-1  Female  0.543372             0              0         No Info  0.048828   
-2    Male -0.614096             0              0           never  0.048828   
-3  Female -0.257952             0              0         current -0.604890   
-4    Male  1.522768             1              1         current -1.164014   
+### 1. Standarisasi Fitur Numerik
+```python
+# Pilih fitur numerik yang ingin distandarisasi
+numerical_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
 
-   HbA1c_level  blood_glucose_level  diabetes  anomaly  
-0     1.024846             0.043554         0        1  
-1     1.024846            -1.423096         0        1  
-2     0.167291             0.483549         0        1  
-3    -0.499697             0.410216         0        1  
-4    -0.690265             0.410216         0        1  
+# Inisialisasi Standard Scaler
+scaler = StandardScaler()
+
+# Lakukan standarisasi pada fitur-fitur tersebut
+data[numerical_features] = scaler.fit_transform(data[numerical_features])
 ```
 
-### 2. One-Hot Encoding
-Fitur kategori seperti "gender" dan "smoking_history" telah diubah menjadi variabel biner menggunakan one-hot encoding. Ini dilakukan karena beberapa algoritma pembelajaran mesin memerlukan input dalam bentuk numerik. One-hot encoding memungkinkan kita untuk memasukkan informasi ini ke dalam model tanpa bias.
+**Alasan**: Standarisasi fitur numerik diperlukan karena beberapa algoritma machine learning sensitif terhadap skala data. Dengan melakukan standarisasi, kita memastikan bahwa setiap fitur memiliki skala yang seragam, sehingga tidak ada fitur yang mendominasi perhitungan model.
 
-**Output**:
-```
-    age  hypertension  heart_disease    bmi  HbA1c_level  blood_glucose_level  \
-0  80.0             0              1  25.19          6.6                  140   
-1  54.0             0              0  27.32          6.6                   80   
-2  28.0             0              0  27.32          5.7                  158   
-3  36.0             0              0  23.45          5.0                  155   
-4  76.0             1              1  20.14          4.8                  155   
-
-   diabetes  anomaly  gender_Male  smoking_history_current  \
-0         0        1        False                    False   
-1         0        1        False                    False   
-2         0        1         True                    False   
-3         0        1        False                     True   
-4         0        1         True                     True   
-
-   smoking_history_ever  smoking_history_former  smoking_history_never  \
-0                 False                   False                   True   
-1                 False                   False                  False   
-2                 False                   False                   True   
-3                 False                   False                  False   
-4                 False                   False                  False   
-
-   smoking_history_not current  
-0                        False  
-1                        False  
-2                        False  
-3                        False  
-4                        False  
+### 2. One-Hot Encoding untuk Kolom Kategori
+```python
+# Melakukan one-hot encoding untuk kolom "gender" dan "smoking_history"
+data_encoded = pd.get_dummies(data, columns=['gender', 'smoking_history'], drop_first=True)
 ```
 
-### 3. Seleksi Fitur
-Korelasi antara fitur-fitur numerik dengan variabel target "diabetes" telah dihitung. Fitur-fitur yang memiliki korelasi relevan dengan ambang batas 0.1 telah dipilih untuk digunakan dalam model prediksi. Ini bertujuan untuk mengurangi dimensi fitur dan hanya mempertahankan fitur yang memiliki pengaruh signifikan terhadap prediksi diabetes.
+**Alasan**: Banyak algoritma machine learning memerlukan input dalam bentuk numerik. Oleh karena itu, kolom kategori seperti "gender" dan "smoking_history" diubah menjadi variabel biner menggunakan one-hot encoding agar bisa dimasukkan ke dalam model.
 
-### 4. Pemisahan Data
-Data telah dibagi menjadi dua set, yaitu set pelatihan (80% data) dan set tes (20% data) menggunakan `train_test_split` dari scikit-learn. Hal ini dilakukan untuk menguji kinerja model pada data yang belum pernah dilihat sebelumnya. Jumlah sampel dalam set pelatihan adalah 76,916, sedangkan jumlah sampel dalam set tes adalah 19,230.
+### 3. Seleksi Fitur Berdasarkan Korelasi
+```python
+# Menghitung korelasi antara fitur dan target (diabetes)
+correlations = data_encoded.corr()['diabetes'].abs().sort_values(ascending=False)
+
+# Menentukan ambang batas korelasi yang relevan (misalnya, 0.1)
+relevant_features = correlations[correlations > 0.1].index.tolist()
+```
+
+**Alasan**: Seleksi fitur bertujuan untuk memilih fitur-fitur yang memiliki korelasi yang relevan dengan variabel target, dalam hal ini "diabetes." Fitur-fitur yang memiliki korelasi yang rendah dengan target dapat diabaikan untuk memperbaiki efisiensi model dan menghindari overfitting.
+
+### 4. Pemisahan Data menjadi Set Pelatihan dan Set Tes
+```python
+# Memisahkan data menjadi set pelatihan dan set tes (misalnya, 80% pelatihan dan 20% tes)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+**Alasan**: Pemisahan data menjadi set pelatihan dan set tes penting untuk menguji kinerja model pada data yang belum pernah dilihat sebelumnya. Dengan ini, kita dapat mengukur seberapa baik model dapat menggeneralisasi pola dari data ke data baru.
+
+Dengan menerapkan teknik-teknik data preparation ini, data telah dipersiapkan dengan baik untuk digunakan dalam pembuatan model prediksi diabetes. Data telah disesuaikan dengan kebutuhan algoritma machine learning dan siap untuk melanjutkan ke tahap pemodelan.
 
 ## Modeling
 
