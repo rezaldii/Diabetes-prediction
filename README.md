@@ -42,6 +42,11 @@ Berdasarkan Problem Statements, tujuan untuk proyek ini adalah:
 
 Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapat mengunduh dataset ini dari Kaggle melalui tautan berikut: [Diabetes Prediction Dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset).
 
+- Dataset memiliki format CSV (Comma-Seperated Values).
+- Dataset memiliki 100,000 baris (rows) dan 9 kolom (columns).
+- Dataset memiliki 2 kolom bertipe object, 3 kolom bertipe float64 dan 4 kolom bertipe int64.
+- Tidak ada missing value dalam dataset.
+
 ### Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
 
 1. **gender**: Variabel ini menyimpan informasi tentang jenis kelamin pasien (e.g., Female, Male, Other).
@@ -62,106 +67,94 @@ Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapa
 
 9. **diabetes**: Variabel ini adalah target yang akan diprediksi (0 untuk Tidak memiliki diabetes, 1 untuk Memiliki diabetes).
 
-### Tahapan Data Understanding:
+### Exploratory Data Analysis (EDA)
 
-1. **Load Dataset**: Data diunduh dari sumber (Kaggle) dan dimuat ke dalam DataFrame menggunakan perintah berikut:
-   
-   ```python
-   data = pd.read_csv('diabetes_prediction_dataset.csv')
-   ```
+1. **Data Visualization (Visualisasi Data):**
+   - Kode pertama menampilkan grafik batang untuk variabel jenis kelamin (gender).
+   - Kode kedua menampilkan grafik batang untuk variabel riwayat merokok (smoking_history).
+   - Kode ketiga menampilkan histogram untuk variabel usia (age).
+   - Kode keempat menampilkan histogram untuk variabel indeks massa tubuh (bmi).
+   - Kode kelima menampilkan histogram untuk variabel tingkat glukosa darah (blood_glucose_level).
+   - Kode keenam, ketujuh, dan kedelapan menampilkan boxplot untuk variabel usia (age), indeks massa tubuh (bmi), dan tingkat glukosa darah (blood_glucose_level).
+   - Kode kesembilan menampilkan scatterplot untuk memvisualisasikan hubungan antara usia (age) dan indeks massa tubuh (bmi).
 
-2. **Melihat 5 Data Awal**: Untuk memahami konten dataset, lima baris pertama dari dataset ditampilkan menggunakan perintah:
-   
-   ```python
-   data.head()
-   ```
+   Output: Grafik-grafik dan plot data yang digunakan untuk memvisualisasikan distribusi dan hubungan antara variabel dalam dataset.
 
-3. **Informasi Data**: Untuk memahami tipe data, jumlah kolom dan baris, serta adanya nilai yang hilang, digunakan perintah berikut:
-   
-   ```python
-   data.info()
-   ```
+2. **Pengujian Hipotesis Statistik:**
+   - Kode berikutnya adalah contoh pengujian hipotesis statistik. Dilakukan dua jenis pengujian:
+     - Pertama, menggunakan uji t (t-test) untuk membandingkan rata-rata BMI antara pasien diabetes dan non-diabetes.
+     - Kedua, menggunakan uji ANOVA untuk membandingkan rata-rata BMI antara kelompok berbeda berdasarkan riwayat merokok.
 
-4. **Statistik Deskriptif**: Untuk mendapatkan statistik deskriptif dari variabel numerik, digunakan perintah:
-   
-   ```python
-   data.describe()
-   ```
+   Output: Hasil statistik seperti nilai t-statistic, p-value, dan kesimpulan berdasarkan alpha level (0.05) untuk setiap pengujian.
 
-5. **Jumlah Data yang Hilang**: Untuk mengidentifikasi jumlah data yang hilang dalam setiap kolom, digunakan perintah:
-   
-   ```python
-   data.isnull().sum()
-   ```
+3. **Analisis Tabel Kontingensi:**
+   - Dibuat tabel kontingensi untuk menganalisis hubungan antara jenis kelamin (gender) dan diabetes.
+   - Selanjutnya, digunakan uji Chi-square untuk menguji apakah ada hubungan yang signifikan antara jenis kelamin dan diabetes.
 
-6. **Jumlah Unik untuk Setiap Variabel**: Untuk melihat jumlah nilai unik dalam setiap kolom, digunakan perintah:
-   
-   ```python
-   data.nunique()
-   ```
+   Output: Tabel kontingensi, nilai Chi-square, nilai p, derajat kebebasan, dan tabel frekuensi harapan.
 
-7. **Visualisasi Data**: Visualisasi data dilakukan dengan menghasilkan grafik batang (bar plot), histogram, box plot, dan scatterplot untuk beberapa variabel. Contohnya adalah visualisasi jenis kelamin (gender) dan riwayat merokok (smoking_history) menggunakan grafik batang, serta histogram untuk usia (age), indeks massa tubuh (bmi), dan tingkat glukosa darah (blood_glucose_level).
+4. **Korelasi dan Scatterplot:**
+   - Diukur korelasi antara usia (age) dan indeks massa tubuh (bmi) menggunakan metode Pearson.
+   - Dalam bentuk scatterplot, memvisualisasikan hubungan tersebut.
 
-8. **Uji Hipotesis Statistik**: Dilakukan uji hipotesis statistik seperti uji t untuk membandingkan rata-rata BMI antara pasien diabetes dan non-diabetes, uji ANOVA untuk membandingkan rata-rata BMI antara kelompok berbeda berdasarkan riwayat merokok, dan uji chi-square untuk menganalisis hubungan antara jenis kelamin (gender) dan diabetes.
+   Output: Nilai korelasi (positif lemah) dan scatterplot antara usia dan BMI.
 
-9. **Korelasi Antara Variabel**: Dihitung nilai korelasi antara usia (age) dan indeks massa tubuh (bmi) serta ditampilkan dalam scatterplot.
+5. **Deteksi Anomali (Outlier Detection):**
+   - Dilakukan deteksi anomali pada beberapa variabel numerik (age, bmi, HbA1c level, blood glucose level) menggunakan metode IQR (Interquartile Range).
+   - Juga dilakukan deteksi anomali dengan menggunakan metode Isolation Forest pada dua fitur (age dan bmi).
 
-10. **Deteksi Anomali**: Anomali dalam dataset dideteksi menggunakan algoritma Isolation Forest.
+   Output: Data yang dianggap sebagai anomali berdasarkan batasan yang telah ditentukan.
 
-11. **Verifikasi Kualitas Data**: Dilakukan pemeriksaan data terhadap duplikasi dan kualitas data, termasuk penanganan nilai yang tidak konsisten dalam kolom jenis kelamin (gender).
+### Verifikasi Kualitas Data
 
-12. **Pembersihan Data**: Nilai "Other" dalam kolom jenis kelamin (gender) diganti dengan NaN, dan data yang duplikat dihapus.
+1. **Menghitung Jumlah Data Duplikat**:
+   - Kode pertama menghitung jumlah data yang duplikat dalam dataset dengan menggunakan `.duplicated().sum()`. Hasilnya adalah 3,854 data duplikat.
 
-Data Understanding adalah langkah awal yang penting dalam proyek analitik data untuk memahami dataset yang digunakan dan mempersiapkannya untuk analisis lebih lanjut.
+2. **Menghapus Data Duplikat**:
+   - Selanjutnya, kode menghapus data yang duplikat menggunakan `.drop_duplicates()`, sehingga dataset menjadi lebih bersih. Setelah penghapusan, ukuran dataset menjadi (96,146 baris, 10 kolom).
+
+3. **Penanganan Outlier**:
+   - Kode kemudian melakukan penanganan outlier untuk tiga variabel numerik: 'age', 'bmi', dan 'HbA1c_level'. Proses ini dilakukan dengan menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3) untuk setiap variabel, menghitung IQR (Interquartile Range), dan menentukan batas bawah dan batas atas untuk mendeteksi outlier. Outlier diidentifikasi dan digantikan dengan nilai batas atas atau batas bawah.
+
+4. **Pemeriksaan Ketidaksesuaian Data**:
+   - Setelah penanganan outlier, dilakukan pemeriksaan data yang mungkin tidak sesuai. 
+     - Pertama, kode memeriksa apakah ada nilai usia (age) yang kurang dari 0, tetapi tidak menemukan ketidaksesuaian tersebut.
+     - Kemudian, kode memeriksa kolom 'gender' untuk memeriksa apakah ada nilai yang tidak sesuai. Terdapat beberapa entri dengan nilai "Other" yang dianggap tidak sesuai dengan pilihan jenis kelamin yang seharusnya hanya "Male" atau "Female". Kode mencetak data yang tidak sesuai ini.
+
+5. **Penggantian Nilai "Other" dengan NaN**:
+   - Kode mengganti nilai "Other" dalam kolom 'gender' dengan nilai NaN untuk mengatasi ketidaksesuaian ini.
+
+6. **Menyimpan Dataset yang Diperbarui**:
+   - Terakhir, dataset yang telah diperbarui disimpan dalam file CSV dengan nama "diabetes_prediction_dataset_updated.csv" menggunakan perintah `.to_csv()`.
+
+**Output**:
+- Output kode mencakup informasi tentang jumlah data duplikat sebelum penghapusan dan ukuran dataset setelah penghapusan. Selanjutnya, output mencetak data yang tidak sesuai dalam kolom 'gender', yang kemudian diperbaiki dengan mengganti nilai "Other" menjadi NaN.
 
 ## Data Preparation
-Pada proyek ini, beberapa tahapan data preparation telah dilakukan untuk memastikan kualitas dan kesiapan data sebelum digunakan dalam pembuatan model prediksi diabetes. Berikut adalah tahapan-tahapan tersebut:
 
-### 1. Standarisasi Fitur Numerik
-Data preparation merupakan salah satu tahap penting dalam pemrosesan data sebelum membangun model prediksi. Pada proyek ini, berikut adalah teknik data preparation yang telah dilakukan:
+1. **Standarisasi Fitur Numerik**:
+   - Memilih fitur-fitur numerik yang akan distandarisasi, yaitu 'age', 'bmi', 'HbA1c_level', dan 'blood_glucose_level'.
+   - Menggunakan StandardScaler dari scikit-learn untuk melakukan standarisasi pada fitur-fitur tersebut. Standarisasi mengubah distribusi data sehingga memiliki rerata (mean) sekitar 0 dan deviasi standar (standard deviation) sekitar 1.
+   - Alasan: Standarisasi diperlukan agar berbagai fitur numerik memiliki skala yang serupa, sehingga algoritma machine learning yang sensitif terhadap skala, dapat bekerja dengan baik.
 
-### 1. Standarisasi Fitur Numerik
-```python
-# Pilih fitur numerik yang ingin distandarisasi
-numerical_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
+2. **One-Hot Encoding**:
+   - Melakukan one-hot encoding pada kolom 'gender' dan 'smoking_history'.
+   - Menggunakan pd.get_dummies() untuk mengganti kolom kategorikal ini menjadi representasi biner, di mana setiap kategori diubah menjadi kolom baru dengan nilai biner (0 atau 1).
+   - Alasan: Algoritma machine learning umumnya memerlukan input dalam bentuk numerik, sehingga kolom kategorikal perlu diubah menjadi bentuk yang dapat digunakan oleh model. One-hot encoding memungkinkan pemasukkan informasi kategori ke dalam model tanpa menimbulkan ambiguitas atau urutan.
 
-# Inisialisasi Standard Scaler
-scaler = StandardScaler()
+3. **Korelasi Fitur dengan Target**:
+   - Menghitung korelasi antara fitur-fitur dengan target (diabetes) menggunakan metode .corr(). Mengurutkan korelasi ini dalam urutan menurun.
+   - Menentukan ambang batas korelasi yang relevan (0.1) untuk mengekstrak fitur-fitur yang memiliki korelasi signifikan dengan target.
+   - Alasan: Ini membantu identifikasi fitur-fitur yang paling berpotensi berpengaruh pada prediksi diabetes. Fitur-fitur dengan korelasi yang kuat terhadap target adalah kandidat yang baik untuk dimasukkan dalam model.
 
-# Lakukan standarisasi pada fitur-fitur tersebut
-data[numerical_features] = scaler.fit_transform(data[numerical_features])
-```
+4. **Visualisasi Matriks Korelasi**:
+   - Memvisualisasikan matriks korelasi dari fitur-fitur yang relevan dengan diabetes menggunakan heatmap.
+   - Alasan: Visualisasi ini membantu memahami hubungan antara fitur-fitur yang relevan dan dapat membantu mengidentifikasi pola korelasi yang mungkin tidak terlihat dalam angka.
 
-**Alasan**: Standarisasi fitur numerik diperlukan karena beberapa algoritma machine learning sensitif terhadap skala data. Dengan melakukan standarisasi, kita memastikan bahwa setiap fitur memiliki skala yang seragam, sehingga tidak ada fitur yang mendominasi perhitungan model.
-
-### 2. One-Hot Encoding untuk Kolom Kategori
-```python
-# Melakukan one-hot encoding untuk kolom "gender" dan "smoking_history"
-data_encoded = pd.get_dummies(data, columns=['gender', 'smoking_history'], drop_first=True)
-```
-
-**Alasan**: Banyak algoritma machine learning memerlukan input dalam bentuk numerik. Oleh karena itu, kolom kategori seperti "gender" dan "smoking_history" diubah menjadi variabel biner menggunakan one-hot encoding agar bisa dimasukkan ke dalam model.
-
-### 3. Seleksi Fitur Berdasarkan Korelasi
-```python
-# Menghitung korelasi antara fitur dan target (diabetes)
-correlations = data_encoded.corr()['diabetes'].abs().sort_values(ascending=False)
-
-# Menentukan ambang batas korelasi yang relevan (misalnya, 0.1)
-relevant_features = correlations[correlations > 0.1].index.tolist()
-```
-
-**Alasan**: Seleksi fitur bertujuan untuk memilih fitur-fitur yang memiliki korelasi yang relevan dengan variabel target, dalam hal ini "diabetes." Fitur-fitur yang memiliki korelasi yang rendah dengan target dapat diabaikan untuk memperbaiki efisiensi model dan menghindari overfitting.
-
-### 4. Pemisahan Data menjadi Set Pelatihan dan Set Tes
-```python
-# Memisahkan data menjadi set pelatihan dan set tes (misalnya, 80% pelatihan dan 20% tes)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-```
-
-**Alasan**: Pemisahan data menjadi set pelatihan dan set tes penting untuk menguji kinerja model pada data yang belum pernah dilihat sebelumnya. Dengan ini, kita dapat mengukur seberapa baik model dapat menggeneralisasi pola dari data ke data baru.
-
-Dengan menerapkan teknik-teknik data preparation ini, data telah dipersiapkan dengan baik untuk digunakan dalam pembuatan model prediksi diabetes. Data telah disesuaikan dengan kebutuhan algoritma machine learning dan siap untuk melanjutkan ke tahap pemodelan.
+5. **Pemisahan Data**:
+   - Memisahkan data menjadi set pelatihan (80%) dan set tes (20%) menggunakan train_test_split dari scikit-learn.
+   - Juga mencetak jumlah sampel dalam set pelatihan dan set tes.
+   - Alasan: Pemisahan data menjadi set pelatihan dan set tes penting untuk menguji kinerja model. Dengan memiliki set tes yang independen, dapat mengukur sejauh mana model yang telah dilatih di atas data pelatihan akan berkinerja pada data yang belum pernah dilihat sebelumnya.
 
 ## Modeling
 
