@@ -47,7 +47,7 @@ Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapa
 - Dataset memiliki 2 kolom bertipe object, 3 kolom bertipe float64 dan 4 kolom bertipe int64.
 - Tidak ada missing value dalam dataset.
 
-### Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
+## Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
 
 1. **gender**: Variabel ini menyimpan informasi tentang jenis kelamin pasien (e.g., Female, Male, Other).
 
@@ -67,68 +67,146 @@ Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapa
 
 9. **diabetes**: Variabel ini adalah target yang akan diprediksi (0 untuk Tidak memiliki diabetes, 1 untuk Memiliki diabetes).
 
-### Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
-1. **Data Visualization (Visualisasi Data):**
-   - Kode pertama menampilkan grafik batang untuk variabel jenis kelamin (gender).
-   - Kode kedua menampilkan grafik batang untuk variabel riwayat merokok (smoking_history).
-   - Kode ketiga menampilkan histogram untuk variabel usia (age).
-   - Kode keempat menampilkan histogram untuk variabel indeks massa tubuh (bmi).
-   - Kode kelima menampilkan histogram untuk variabel tingkat glukosa darah (blood_glucose_level).
-   - Kode keenam, ketujuh, dan kedelapan menampilkan boxplot untuk variabel usia (age), indeks massa tubuh (bmi), dan tingkat glukosa darah (blood_glucose_level).
-   - Kode kesembilan menampilkan scatterplot untuk memvisualisasikan hubungan antara usia (age) dan indeks massa tubuh (bmi).
+### Visualisasi Data
 
-   Output: Grafik-grafik dan plot data yang digunakan untuk memvisualisasikan distribusi dan hubungan antara variabel dalam dataset.
+#### Grafik Batang untuk Variabel Jenis Kelamin (Gender)
+![Grafik Batang untuk Variabel Jenis Kelamin](https://i.imgur.com/3Bc8VeA.png)
 
-2. **Pengujian Hipotesis Statistik:**
-   - Kode berikutnya adalah contoh pengujian hipotesis statistik. Dilakukan dua jenis pengujian:
-     - Pertama, menggunakan uji t (t-test) untuk membandingkan rata-rata BMI antara pasien diabetes dan non-diabetes.
-     - Kedua, menggunakan uji ANOVA untuk membandingkan rata-rata BMI antara kelompok berbeda berdasarkan riwayat merokok.
+Grafik di atas menunjukkan distribusi jenis kelamin pasien dalam dataset. Terdapat tiga kategori: Female, Male, dan Other. Mayoritas pasien adalah Female dan Male, sedangkan Other memiliki jumlah yang sangat sedikit.
 
-   Output: Hasil statistik seperti nilai t-statistic, p-value, dan kesimpulan berdasarkan alpha level (0.05) untuk setiap pengujian.
+**Analisis**: Distribusi jenis kelamin dapat memberikan wawasan awal tentang komposisi dataset.
 
-3. **Analisis Tabel Kontingensi:**
-   - Dibuat tabel kontingensi untuk menganalisis hubungan antara jenis kelamin (gender) dan diabetes.
-   - Selanjutnya, digunakan uji Chi-square untuk menguji apakah ada hubungan yang signifikan antara jenis kelamin dan diabetes.
+#### Grafik Batang untuk Variabel Riwayat Merokok (Smoking History)
+![Grafik Batang untuk Variabel Riwayat Merokok](https://imgur.com/iWUzfNQ.png)
 
-   Output: Tabel kontingensi, nilai Chi-square, nilai p, derajat kebebasan, dan tabel frekuensi harapan.
+Grafik di atas menampilkan frekuensi riwayat merokok pasien dalam dataset. Terdapat beberapa kategori seperti never, former, current, not current, dan ever.
 
-4. **Korelasi dan Scatterplot:**
-   - Diukur korelasi antara usia (age) dan indeks massa tubuh (bmi) menggunakan metode Pearson.
-   - Dalam bentuk scatterplot, memvisualisasikan hubungan tersebut.
+**Analisis**: Informasi ini dapat berguna dalam memahami apakah riwayat merokok dapat menjadi faktor prediktor dalam diabetes.
 
-   Output: Nilai korelasi (positif lemah) dan scatterplot antara usia dan BMI.
+#### Histogram Usia (Age)
+![Histogram Usia](https://imgur.com/oBhOYlh.png)
 
-5. **Deteksi Anomali (Outlier Detection):**
-   - Dilakukan deteksi anomali pada beberapa variabel numerik (age, bmi, HbA1c level, blood glucose level) menggunakan metode IQR (Interquartile Range).
-   - Juga dilakukan deteksi anomali dengan menggunakan metode Isolation Forest pada dua fitur (age dan bmi).
+Histogram di atas menggambarkan distribusi usia pasien dalam dataset. Terlihat bahwa distribusi usia cenderung normal.
 
-   Output: Data yang dianggap sebagai anomali berdasarkan batasan yang telah ditentukan.
+**Analisis**: Distribusi usia dapat memberikan gambaran tentang sebaran usia pasien dalam dataset.
 
-### Verifikasi Kualitas Data
+#### Histogram Indeks Massa Tubuh (BMI)
+![Histogram Indeks Massa Tubuh](https://imgur.com/N8uOerO.png)
 
-1. **Menghitung Jumlah Data Duplikat**:
-   - Kode pertama menghitung jumlah data yang duplikat dalam dataset dengan menggunakan `.duplicated().sum()`. Hasilnya adalah 3,854 data duplikat.
+Histogram ini menunjukkan distribusi Indeks Massa Tubuh (BMI) pasien dalam dataset. Distribusi BMI juga cenderung normal.
 
-2. **Menghapus Data Duplikat**:
-   - Selanjutnya, kode menghapus data yang duplikat menggunakan `.drop_duplicates()`, sehingga dataset menjadi lebih bersih. Setelah penghapusan, ukuran dataset menjadi (96,146 baris, 10 kolom).
+**Analisis**: Distribusi BMI dapat membantu dalam memahami berat badan pasien dalam dataset.
 
-3. **Penanganan Outlier**:
-   - Kode kemudian melakukan penanganan outlier untuk tiga variabel numerik: 'age', 'bmi', dan 'HbA1c_level'. Proses ini dilakukan dengan menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3) untuk setiap variabel, menghitung IQR (Interquartile Range), dan menentukan batas bawah dan batas atas untuk mendeteksi outlier. Outlier diidentifikasi dan digantikan dengan nilai batas atas atau batas bawah.
+#### Histogram Tingkat Glukosa Darah (Blood Glucose Level)
+![Histogram Tingkat Glukosa Darah](https://imgur.com/kpSlTok.png)
 
-4. **Pemeriksaan Ketidaksesuaian Data**:
-   - Setelah penanganan outlier, dilakukan pemeriksaan data yang mungkin tidak sesuai. 
-     - Pertama, kode memeriksa apakah ada nilai usia (age) yang kurang dari 0, tetapi tidak menemukan ketidaksesuaian tersebut.
-     - Kemudian, kode memeriksa kolom 'gender' untuk memeriksa apakah ada nilai yang tidak sesuai. Terdapat beberapa entri dengan nilai "Other" yang dianggap tidak sesuai dengan pilihan jenis kelamin yang seharusnya hanya "Male" atau "Female". Kode mencetak data yang tidak sesuai ini.
+Histogram di atas menunjukkan distribusi tingkat glukosa darah pasien dalam dataset. Terlihat bahwa distribusi tidak merata.
 
-5. **Penggantian Nilai "Other" dengan NaN**:
-   - Kode mengganti nilai "Other" dalam kolom 'gender' dengan nilai NaN untuk mengatasi ketidaksesuaian ini.
+**Analisis**: Distribusi tingkat glukosa darah dapat memberikan wawasan tentang kadar glukosa dalam dataset.
 
-6. **Menyimpan Dataset yang Diperbarui**:
-   - Terakhir, dataset yang telah diperbarui disimpan dalam file CSV dengan nama "diabetes_prediction_dataset_updated.csv" menggunakan perintah `.to_csv()`.
+#### Boxplot untuk Usia (Age), Indeks Massa Tubuh (BMI), dan Tingkat Glukosa Darah (Blood Glucose Level)
+![Boxplot Usia](https://imgur.com/aEXJBMK.png)
+![Boxplot BMI](https://imgur.com/n9AKQ1A.png)
+![Boxplot Glukosa Darah](https://imgur.com/2oYACm4.png)
 
-**Output**:
-- Output kode mencakup informasi tentang jumlah data duplikat sebelum penghapusan dan ukuran dataset setelah penghapusan. Selanjutnya, output mencetak data yang tidak sesuai dalam kolom 'gender', yang kemudian diperbaiki dengan mengganti nilai "Other" menjadi NaN.
+Boxplot di atas menunjukkan rangkaian statistik deskriptif untuk usia, BMI, dan tingkat glukosa darah pasien. Boxplot membantu mengidentifikasi adanya pencilan (outlier).
+
+**Analisis**: Dari boxplot, kita dapat melihat adanya outlier dalam variabel usia (Age) dan BMI.
+
+#### Scatterplot Usia (Age) vs. Indeks Massa Tubuh (BMI)
+![Scatterplot Usia vs. BMI](https://imgur.com/6QXDyRI.png)
+
+Scatterplot di atas memvisualisasikan hubungan antara usia (Age) dan indeks massa tubuh (BMI) pasien.
+
+**Analisis**: Scatterplot membantu melihat apakah ada hubungan antara usia dan BMI pasien. Namun, hubungannya tidak terlalu jelas.
+
+### Analisis Statistik
+
+#### Pengujian Hipotesis Statistik
+Kami melakukan dua jenis pengujian hipotesis statistik:
+1. Uji T (t-test) untuk Membandingkan Rata-rata BMI antara Pasien Diabetes dan Non-Diabetes.
+   - Hasil uji T: [T-statistic], [p-value].
+   - Kesimpulan: [Kesimpulan berdasarkan alpha level (0.05)].
+
+2. Uji ANOVA untuk Membandingkan Rata-rata BMI antara Kelompok dengan Riwayat Merokok yang Berbeda.
+   - Hasil uji ANOVA: [Nilai F], [p-value].
+   - Kesimpulan: [Kesimpulan berdasarkan alpha level (0.05)].
+
+**Analisis**: Hasil pengujian hipotesis membantu menentukan apakah terdapat perbedaan yang signifikan dalam rata-rata BMI antara kelompok yang berbeda.
+
+#### Tabel Kontingensi dan Uji Chi-square
+```
+Tabel Kontingensi (Jenis Kelamin vs. Diabetes)
+
+| Diabetes  | 0     | 1     |
+|-----------|-------|-------|
+| **Gender**|       |       |
+| Female    | 54091 | 4461  |
+| Male      | 37391 | 4039  |
+| Other     | 18    | 0     |
+
+Hasil Uji Chi-square
+
+- Chi-square Value: 143.21825102550298
+- P-Value: 7.953383718307458e-32
+- Degrees of Freedom: 2
+
+Tabel Frekuensi Harapan
+
+| Expected Frequencies Table  | 0            | 1          |
+|-----------------------------|--------------|------------|
+| **Gender**                  |              |            |
+| Female                      | 5.357508e+04 | 4.976920e+03 |
+| Male                        | 3.790845e+04 | 3.521550e+03 |
+| Other                       | 1.647000e+01 | 1.530000e+00 |
+```
+
+Tabel kontingensi di atas menunjukkan hubungan antara jenis kelamin (Gender) dan diabetes. Kami menggunakan uji Chi-square untuk menguji apakah ada hubungan yang signifikan antara jenis kelamin dan diabetes.
+
+**Hasil Uji Chi-square**: [Nilai Chi-square], [p-value], [Derajat Kebebasan].
+**Kesimpulan**: [Kesimpulan berdasarkan alpha level (0.05)].
+
+**Analisis**: Hasil uji Chi-square membantu kami menentukan apakah jenis kelamin terkait dengan keberadaan diabetes dalam dataset.
+
+### Korelasi dan Scatterplot
+
+Mengukur korelasi antara usia (Age) dan indeks massa tubuh (BMI) menggunakan metode Pearson. Hasilnya adalah korelasi positif yang lemah (nilai korelasi).
+
+Selain itu, memvisualisasikan hubungan ini dalam bentuk scatterplot (lihat gambar di atas).
+
+**Analisis**: Korelasi ini menunjukkan bahwa ada hubungan positif lemah antara usia dan BMI, yang berarti seiring bertambahnya usia, BMI cenderung meningkat.
+
+### Deteksi Anomali (Outlier Detection)
+
+Melakukan deteksi anomali pada beberapa variabel numerik, seperti usia (Age), BMI, HbA1c level, dan tingkat glukosa darah (Blood Glucose Level) menggunakan metode IQR (Interquartile Range). Juga menggunakan metode Isolation Forest untuk mendeteksi outlier pada variabel usia (Age) dan BMI.
+
+**Analisis**: Hasil deteksi anomali membantu mengidentifikasi dan memahami adanya outlier dalam dataset.
+
+## Verifikasi Kualitas Data
+
+### Menghitung Jumlah Data Duplikat
+
+Sebelum melakukan perbaikan, menghitung jumlah data yang dup
+
+likat dalam dataset dengan menggunakan `.duplicated().sum()`. Hasilnya adalah 3,854 data duplikat.
+
+### Menghapus Data Duplikat
+
+Selanjutnya, menghapus data yang duplikat menggunakan `.drop_duplicates()`, sehingga dataset menjadi lebih bersih. Setelah penghapusan, ukuran dataset menjadi (96,146 baris, 10 kolom).
+
+### Penanganan Outlier
+
+Melakukan penanganan outlier untuk tiga variabel numerik: 'age', 'bmi', dan 'HbA1c_level'. Proses ini dilakukan dengan menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3) untuk setiap variabel, menghitung IQR (Interquartile Range), dan menentukan batas bawah dan batas atas untuk mendeteksi outlier. Outlier diidentifikasi dan digantikan dengan nilai batas atas atau batas bawah.
+
+### Pemeriksaan Ketidaksesuaian Data
+
+Setelah penanganan outlier, melakukan pemeriksaan data yang mungkin tidak sesuai, seperti nilai usia (age) yang kurang dari 0 dan ketidaksesuaian dalam kolom 'gender'. Kami mengganti nilai "Other" dalam kolom 'gender' dengan nilai NaN untuk mengatasi ketidaksesuaian ini.
+
+### Menyimpan Dataset yang Diperbarui
+
+Dataset yang telah diperbarui disimpan dalam file CSV dengan nama "diabetes_prediction_dataset_updated.csv" menggunakan perintah `.to_csv()`.
 
 ## Data Preparation
 
