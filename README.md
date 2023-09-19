@@ -38,7 +38,7 @@ Berdasarkan Problem Statements, tujuan untuk proyek ini adalah:
 
    - **Penyetelan Hyperparameter**: menggunakan teknik Grid Search dan Random Search. Tujuannya adalah untuk menemukan kombinasi hyperparameter terbaik yang dapat meningkatkan performa model.
 
-# Data Understanding
+## Data Understanding
 
 Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapat mengunduh dataset ini dari Kaggle melalui tautan berikut: [Diabetes Prediction Dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset).
 
@@ -47,85 +47,111 @@ Dalam proyek ini, data yang digunakan adalah "Diabetes Prediction Dataset." Dapa
 - Dataset memiliki 2 kolom bertipe object, 3 kolom bertipe float64 dan 4 kolom bertipe int64.
 - Tidak ada missing value dalam dataset.
 
-## Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
+### Variabel-variabel pada Diabetes Prediction Dataset adalah sebagai berikut:
 
-1. **gender**: Variabel ini menyimpan informasi tentang jenis kelamin pasien (e.g., Female, Male, Other).
+1. `gender`: Kolom ini memiliki tipe data "object," yang biasanya digunakan untuk data teks atau kategori. Ini mungkin berisi informasi tentang jenis kelamin pasien.
 
-2. **age**: Variabel ini adalah usia pasien dalam tahun.
+2. `age`: Kolom ini memiliki tipe data "float64," yang berarti itu adalah data numerik berupa angka desimal. Ini mungkin berisi informasi tentang usia pasien.
 
-3. **hypertension**: Variabel ini menunjukkan apakah pasien menderita hipertensi (0 untuk Tidak, 1 untuk Ya).
+3. `hypertension`: Kolom ini memiliki tipe data "int64," yang berarti itu adalah data numerik berupa bilangan bulat. Ini mungkin berisi informasi tentang apakah pasien memiliki hipertensi (1 untuk ya, 0 untuk tidak).
 
-4. **heart_disease**: Variabel ini menunjukkan apakah pasien memiliki penyakit jantung (0 untuk Tidak, 1 untuk Ya).
+4. `heart_disease`: Kolom ini juga memiliki tipe data "int64" dan mungkin berisi informasi tentang apakah pasien memiliki penyakit jantung (1 untuk ya, 0 untuk tidak).
 
-5. **smoking_history**: Variabel ini berisi riwayat merokok pasien (e.g., never, former, current, not current, ever).
+5. `smoking_history`: Kolom ini memiliki tipe data "object," yang mungkin berisi informasi tentang riwayat merokok pasien dalam bentuk teks atau kategori.
 
-6. **bmi**: Variabel ini adalah indeks massa tubuh (BMI) pasien.
+6. `bmi`: Kolom ini memiliki tipe data "float64" dan mungkin berisi informasi tentang Indeks Massa Tubuh (BMI) pasien.
 
-7. **HbA1c_level**: Variabel ini merupakan tingkat HbA1c dalam darah pasien.
+7. `HbA1c_level`: Kolom ini memiliki tipe data "float64" dan mungkin berisi informasi tentang tingkat HbA1c dalam darah pasien.
 
-8. **blood_glucose_level**: Variabel ini adalah tingkat glukosa darah pasien.
+8. `blood_glucose_level`: Kolom ini memiliki tipe data "int64" dan mungkin berisi informasi tentang tingkat glukosa darah pasien.
 
-9. **diabetes**: Variabel ini adalah target yang akan diprediksi (0 untuk Tidak memiliki diabetes, 1 untuk Memiliki diabetes).
+9. `diabetes`: Kolom ini memiliki tipe data "int64" dan mungkin berisi informasi tentang apakah pasien memiliki diabetes (1 untuk ya, 0 untuk tidak).
 
-## Exploratory Data Analysis (EDA)
+### Data Description
+Ringkasan statistik untuk kolom-kolom numerik dalam dataset. Berikut adalah penjelasan singkat dari statistik yang diberikan:
+- `count`: Menunjukkan jumlah data yang tersedia untuk setiap kolom. Semua kolom memiliki 100,000 entri, yang menunjukkan bahwa tidak ada nilai yang hilang (missing values) dalam dataset ini.
 
-### Visualisasi Data
+- `mean`: Ini adalah rata-rata dari setiap kolom numerik. Misalnya, rata-rata usia pasien adalah sekitar 41.89 tahun, rata-rata BMI adalah sekitar 27.32, dan sebagainya.
 
-#### Grafik Batang untuk Variabel Jenis Kelamin (Gender)
-![Grafik Batang untuk Variabel Jenis Kelamin](https://i.imgur.com/3Bc8VeA.png)
+- `std`: Ini adalah simpangan baku (standard deviation) dari setiap kolom numerik. Simpangan baku mengukur sebaran data dari nilai rata-rata. Semakin tinggi nilai simpangan baku, semakin besar variasi data. Misalnya, simpangan baku dari usia adalah sekitar 22.52, yang menunjukkan variasi yang signifikan dalam usia pasien.
+
+- `min`: Ini adalah nilai minimum dalam setiap kolom. Misalnya, nilai usia minimum adalah 0.08 tahun, nilai minimum BMI adalah 10.01, dan seterusnya.
+
+- `25%`, `50%`, dan `75%`: Ini adalah kuartil pertama (25th percentile), kuartil kedua (median, 50th percentile), dan kuartil ketiga (75th percentile) dari data. Kuartil adalah pengukuran yang membagi data menjadi empat bagian sama besar. Misalnya, kuartil pertama untuk usia adalah 24 tahun, yang berarti 25% dari pasien memiliki usia kurang dari 24 tahun.
+
+- `max`: Ini adalah nilai maksimum dalam setiap kolom. Misalnya, nilai usia maksimum adalah 80 tahun, nilai maksimum BMI adalah 95.69, dan sebagainya.
+
+Jumlah nilai unik (unique values) dalam setiap kolom dataset. Dalam hal ini, hasilnya adalah sebagai berikut:
+
+- Kolom 'gender' memiliki 3 nilai unik.
+- Kolom 'age' memiliki 102 nilai unik.
+- Kolom 'hypertension' memiliki 2 nilai unik, yang mungkin mencerminkan apakah seseorang menderita hipertensi atau tidak.
+- Kolom 'heart_disease' memiliki 2 nilai unik, yang mungkin mencerminkan apakah seseorang memiliki penyakit jantung atau tidak.
+- Kolom 'smoking_history' memiliki 6 nilai unik, yang mungkin mencerminkan sejarah merokok seseorang.
+- Kolom 'bmi' memiliki 4,247 nilai unik, yang mencerminkan berbagai nilai indeks massa tubuh (BMI) yang berbeda.
+- Kolom 'HbA1c_level' memiliki 18 nilai unik, yang mungkin mencerminkan tingkat HbA1c dalam darah.
+- Kolom 'blood_glucose_level' memiliki 18 nilai unik, yang mungkin mencerminkan tingkat glukosa dalam darah.
+- Kolom 'diabetes' memiliki 2 nilai unik, yang mungkin mencerminkan apakah seseorang memiliki diabetes atau tidak.
+
+### Exploratory Data Analysis (EDA)
+
+#### Visualisasi Data
+
+##### Grafik Batang untuk Variabel Jenis Kelamin (Gender)
+![Grafik Batang untuk Variabel Jenis Kelamin](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/1.png?raw=true)
 
 Grafik di atas menunjukkan distribusi jenis kelamin pasien dalam dataset. Terdapat tiga kategori: Female, Male, dan Other. Mayoritas pasien adalah Female dan Male, sedangkan Other memiliki jumlah yang sangat sedikit.
 
 **Analisis**: Distribusi jenis kelamin dapat memberikan wawasan awal tentang komposisi dataset.
 
-#### Grafik Batang untuk Variabel Riwayat Merokok (Smoking History)
-![Grafik Batang untuk Variabel Riwayat Merokok](https://imgur.com/iWUzfNQ.png)
+##### Grafik Batang untuk Variabel Riwayat Merokok (Smoking History)
+![Grafik Batang untuk Variabel Riwayat Merokok](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/2.png?raw=true)
 
 Grafik di atas menampilkan frekuensi riwayat merokok pasien dalam dataset. Terdapat beberapa kategori seperti never, former, current, not current, dan ever.
 
 **Analisis**: Informasi ini dapat berguna dalam memahami apakah riwayat merokok dapat menjadi faktor prediktor dalam diabetes.
 
-#### Histogram Usia (Age)
-![Histogram Usia](https://imgur.com/oBhOYlh.png)
+##### Histogram Usia (Age)
+![Histogram Usia](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/3.png?raw=true)
 
 Histogram di atas menggambarkan distribusi usia pasien dalam dataset. Terlihat bahwa distribusi usia cenderung normal.
 
 **Analisis**: Distribusi usia dapat memberikan gambaran tentang sebaran usia pasien dalam dataset.
 
-#### Histogram Indeks Massa Tubuh (BMI)
-![Histogram Indeks Massa Tubuh](https://imgur.com/N8uOerO.png)
+##### Histogram Indeks Massa Tubuh (BMI)
+![Histogram Indeks Massa Tubuh](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/4.png?raw=true)
 
 Histogram ini menunjukkan distribusi Indeks Massa Tubuh (BMI) pasien dalam dataset. Distribusi BMI juga cenderung normal.
 
 **Analisis**: Distribusi BMI dapat membantu dalam memahami berat badan pasien dalam dataset.
 
-#### Histogram Tingkat Glukosa Darah (Blood Glucose Level)
-![Histogram Tingkat Glukosa Darah](https://imgur.com/kpSlTok.png)
+##### Histogram Tingkat Glukosa Darah (Blood Glucose Level)
+![Histogram Tingkat Glukosa Darah](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/5.png?raw=true)
 
 Histogram di atas menunjukkan distribusi tingkat glukosa darah pasien dalam dataset. Terlihat bahwa distribusi tidak merata.
 
 **Analisis**: Distribusi tingkat glukosa darah dapat memberikan wawasan tentang kadar glukosa dalam dataset.
 
-#### Boxplot untuk Usia (Age), Indeks Massa Tubuh (BMI), dan Tingkat Glukosa Darah (Blood Glucose Level)
-![Boxplot Usia](https://imgur.com/aEXJBMK.png)
-![Boxplot BMI](https://imgur.com/n9AKQ1A.png)
-![Boxplot Glukosa Darah](https://imgur.com/2oYACm4.png)
+##### Boxplot untuk Usia (Age), Indeks Massa Tubuh (BMI), dan Tingkat Glukosa Darah (Blood Glucose Level)
+![Boxplot Usia](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/6.png?raw=true)
+![Boxplot BMI](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/7.png?raw=true)
+![Boxplot Glukosa Darah](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/8.png?raw=true)
 
 Boxplot di atas menunjukkan rangkaian statistik deskriptif untuk usia, BMI, dan tingkat glukosa darah pasien. Boxplot membantu mengidentifikasi adanya pencilan (outlier).
 
-**Analisis**: Dari boxplot, kita dapat melihat adanya outlier dalam variabel usia (Age) dan BMI.
+**Analisis**: Dari boxplot, dapat melihat adanya outlier dalam variabel usia (Age) dan BMI.
 
-#### Scatterplot Usia (Age) vs. Indeks Massa Tubuh (BMI)
-![Scatterplot Usia vs. BMI](https://imgur.com/6QXDyRI.png)
+##### Scatterplot Usia (Age) vs. Indeks Massa Tubuh (BMI)
+![Scatterplot Usia vs. BMI](https://github.com/rezaldii/Diabetes-prediction/blob/main/gambar/9.png?raw=true)
 
 Scatterplot di atas memvisualisasikan hubungan antara usia (Age) dan indeks massa tubuh (BMI) pasien.
 
 **Analisis**: Scatterplot membantu melihat apakah ada hubungan antara usia dan BMI pasien. Namun, hubungannya tidak terlalu jelas.
 
-### Analisis Statistik
+#### Analisis Statistik
 
-#### Pengujian Hipotesis Statistik
-Kami melakukan dua jenis pengujian hipotesis statistik:
+##### Pengujian Hipotesis Statistik
+Melakukan dua jenis pengujian hipotesis statistik:
 1. Uji T (t-test) untuk Membandingkan Rata-rata BMI antara Pasien Diabetes dan Non-Diabetes.
    - Hasil uji T: [T-statistic], [p-value].
    - Kesimpulan: [Kesimpulan berdasarkan alpha level (0.05)].
@@ -136,7 +162,7 @@ Kami melakukan dua jenis pengujian hipotesis statistik:
 
 **Analisis**: Hasil pengujian hipotesis membantu menentukan apakah terdapat perbedaan yang signifikan dalam rata-rata BMI antara kelompok yang berbeda.
 
-#### Tabel Kontingensi dan Uji Chi-square
+##### Tabel Kontingensi dan Uji Chi-square
 ```
 Tabel Kontingensi (Jenis Kelamin vs. Diabetes)
 
@@ -163,14 +189,14 @@ Tabel Frekuensi Harapan
 | Other                       | 1.647000e+01 | 1.530000e+00 |
 ```
 
-Tabel kontingensi di atas menunjukkan hubungan antara jenis kelamin (Gender) dan diabetes. Kami menggunakan uji Chi-square untuk menguji apakah ada hubungan yang signifikan antara jenis kelamin dan diabetes.
+Tabel kontingensi di atas menunjukkan hubungan antara jenis kelamin (Gender) dan diabetes. Menggunakan uji Chi-square untuk menguji apakah ada hubungan yang signifikan antara jenis kelamin dan diabetes.
 
 **Hasil Uji Chi-square**: [Nilai Chi-square], [p-value], [Derajat Kebebasan].
 **Kesimpulan**: [Kesimpulan berdasarkan alpha level (0.05)].
 
-**Analisis**: Hasil uji Chi-square membantu kami menentukan apakah jenis kelamin terkait dengan keberadaan diabetes dalam dataset.
+**Analisis**: Hasil uji Chi-square membantu menentukan apakah jenis kelamin terkait dengan keberadaan diabetes dalam dataset.
 
-### Korelasi dan Scatterplot
+#### Korelasi dan Scatterplot
 
 Mengukur korelasi antara usia (Age) dan indeks massa tubuh (BMI) menggunakan metode Pearson. Hasilnya adalah korelasi positif yang lemah (nilai korelasi).
 
@@ -178,33 +204,33 @@ Selain itu, memvisualisasikan hubungan ini dalam bentuk scatterplot (lihat gamba
 
 **Analisis**: Korelasi ini menunjukkan bahwa ada hubungan positif lemah antara usia dan BMI, yang berarti seiring bertambahnya usia, BMI cenderung meningkat.
 
-### Deteksi Anomali (Outlier Detection)
+#### Deteksi Anomali (Outlier Detection)
 
 Melakukan deteksi anomali pada beberapa variabel numerik, seperti usia (Age), BMI, HbA1c level, dan tingkat glukosa darah (Blood Glucose Level) menggunakan metode IQR (Interquartile Range). Juga menggunakan metode Isolation Forest untuk mendeteksi outlier pada variabel usia (Age) dan BMI.
 
 **Analisis**: Hasil deteksi anomali membantu mengidentifikasi dan memahami adanya outlier dalam dataset.
 
-## Verifikasi Kualitas Data
+### Verifikasi Kualitas Data
 
-### Menghitung Jumlah Data Duplikat
+#### Menghitung Jumlah Data Duplikat
 
 Sebelum melakukan perbaikan, menghitung jumlah data yang dup
 
 likat dalam dataset dengan menggunakan `.duplicated().sum()`. Hasilnya adalah 3,854 data duplikat.
 
-### Menghapus Data Duplikat
+#### Menghapus Data Duplikat
 
 Selanjutnya, menghapus data yang duplikat menggunakan `.drop_duplicates()`, sehingga dataset menjadi lebih bersih. Setelah penghapusan, ukuran dataset menjadi (96,146 baris, 10 kolom).
 
-### Penanganan Outlier
+#### Penanganan Outlier
 
 Melakukan penanganan outlier untuk tiga variabel numerik: 'age', 'bmi', dan 'HbA1c_level'. Proses ini dilakukan dengan menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3) untuk setiap variabel, menghitung IQR (Interquartile Range), dan menentukan batas bawah dan batas atas untuk mendeteksi outlier. Outlier diidentifikasi dan digantikan dengan nilai batas atas atau batas bawah.
 
-### Pemeriksaan Ketidaksesuaian Data
+#### Pemeriksaan Ketidaksesuaian Data
 
-Setelah penanganan outlier, melakukan pemeriksaan data yang mungkin tidak sesuai, seperti nilai usia (age) yang kurang dari 0 dan ketidaksesuaian dalam kolom 'gender'. Kami mengganti nilai "Other" dalam kolom 'gender' dengan nilai NaN untuk mengatasi ketidaksesuaian ini.
+Setelah penanganan outlier, melakukan pemeriksaan data yang mungkin tidak sesuai, seperti nilai usia (age) yang kurang dari 0 dan ketidaksesuaian dalam kolom 'gender'. Mengganti nilai "Other" dalam kolom 'gender' dengan nilai NaN untuk mengatasi ketidaksesuaian ini.
 
-### Menyimpan Dataset yang Diperbarui
+#### Menyimpan Dataset yang Diperbarui
 
 Dataset yang telah diperbarui disimpan dalam file CSV dengan nama "diabetes_prediction_dataset_updated.csv" menggunakan perintah `.to_csv()`.
 
